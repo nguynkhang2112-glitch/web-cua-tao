@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎁 Chúc Mừng Sinh Nhật</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            z-index: 1;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #fff;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInDown 1s ease;
+        }
+
+        .gift-box {
+            font-size: 100px;
+            cursor: pointer;
+            display: inline-block;
+            transition: transform 0.3s ease;
+            animation: bounce 2s infinite;
+        }
+
+        .gift-box:hover {
+            transform: scale(1.1);
+        }
+
+        .gift-box:active {
+            transform: scale(0.95);
+        }
+
+        .message {
+            display: none;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            max-width: 500px;
+            margin: 20px auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        .message h2 {
+            color: #764ba2;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .message p {
+            color: #333;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .message .name {
+            color: #e74c3c;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+
+        .balloon {
+            position: absolute;
+            bottom: -100px;
+            font-size: 30px;
+            animation: floatUp linear infinite;
+            pointer-events: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎂 Chúc Mừng Sinh Nhật! 🎂</h1>
+        
+        <!-- Hộp quà - click để mở -->
+        <div class="gift-box" onclick="openGift()">
+            🎁
+        </div>
+
+        <!-- Lời chúc (ẩn ban đầu, hiện khi click) -->
+        <div id="message" class="message">
+            <h2>🎉 Happy Birthday! 🎉</h2>
+            <p>
+                Chúc mừng sinh nhật <span class="name">[Tên người nhận]</span>! 🎂<br><br>
+                Chúc bạn có một ngày sinh nhật thật vui vẻ,<br>
+                hạnh phúc và tràn đầy niềm vui!<br><br>
+                Mong mọi điều tốt đẹp nhất sẽ đến với bạn! 🌟<br>
+                Chúc bạn luôn mạnh khỏe, thành công<br>
+                và mãi là một người tuyệt vời! 💖
+            </p>
+            <button class="btn" onclick="restart()">Mở Lại 🎁</button>
+        </div>
+    </div>
+
+    <script>
+        // Hàm tạo bong bóng
+        function createBalloon() {
+            const emojis = ['🎈', '🎉', '🎊', '💖', '✨', '🎂', '🎁'];
+            const balloon = document.createElement('div');
+            balloon.className = 'balloon';
+            balloon.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            balloon.style.left = Math.random() * 100 + 'vw';
+            balloon.style.fontSize = (Math.random() * 40 + 20) + 'px';
+            balloon.style.animationDuration = (Math.random() * 10 + 5) + 's';
+            document.body.appendChild(balloon);
+
+            setTimeout(() => {
+                balloon.remove();
+            }, 15000);
+        }
+
+        // Hàm mở quà
+        function openGift() {
+            const giftBox = document.querySelector('.gift-box');
+            const message = document.getElementById('message');
+            
+            giftBox.style.display = 'none';
+            message.style.display = 'block';
+            
+            // Tạo bong bóng liên tục
+            setInterval(createBalloon, 300);
+            
+            // Tạo ngay vài bong bóng đầu tiên
+            for (let i = 0; i < 10; i++) {
+                setTimeout(createBalloon, i * 100);
+            }
+        }
+
+        // Hàm chơi lại từ đầu
+        function restart() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>
